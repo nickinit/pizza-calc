@@ -1,8 +1,8 @@
 <template>
-  <div class="card">
+  <div class="card"    > {{ pizza }} {{ value }} {{ index }}
 <!--    header-->
     <div class="card-header">
-      <h2>Pizza #{{ pizza.id }}</h2>
+      <h2>Pizza #{{ this.pizza.id }}</h2>
       <button @click="cardClosed" class="btn default close">&#10006;</button>
     </div>
       <hr>
@@ -10,15 +10,16 @@
     <div class="card-body">
       <div class="form-control">
         <label for="d">Diameter</label>
-        <input :value="pizza.d"  type="text" name="d">
+        <input
+          @keyup="dataChanged" type="text" v-model.number="this.value.d">
       </div>
       <div class="form-control">
         <label for="price">Price</label>
-        <input :value="pizza.price" type="text" name="price">
+        <input type="text" @keyup="dataChanged"  v-model.number="this.value.price">
       </div>
       <div class="form-control">
         <label for="count">Count</label>
-        <input :value="pizza.count" type="text" name="count">
+        <input type="text" @keyup="dataChanged" v-model.number="this.value.count">
       </div>
     </div>
   </div>
@@ -31,27 +32,27 @@ export default {
   name: "PizzaCard",
   props: {
     pizza: Object,
-    index: Number
+    the_best: Object,
+    index: Number,
   },
   data() {
-    // return {id:12}
-
+    return {
+      value: this.pizza,
+      // the_best2: this.the_best
+    }
   },
   methods: {
     cardClosed() {
-      this.$emit('cardClosed', this.index)
-    }
+      this.$emit('cardClosed', this.pizza.id)
+    },
+    dataChanged() {
+      // this.pizza.d = this.value
+      // console.log(this.pizza.id, this.value)
+      this.$emit('dataChanged', this.value)
+
+    },
   },
-  computed: {
-    inputVal: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit('input', val);
-      }
-    }
-  },
+
 }
 </script>
 
@@ -176,5 +177,11 @@ input:focus {
   background: #e7e7e7;
 }
 
+.bestProposal {
+  outline: none;
+  border-color: forestgreen;
+  box-shadow: 0 0 10px yellowgreen;
+  /*background: #42b983;*/
+}
 
 </style>
