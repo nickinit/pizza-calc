@@ -8,15 +8,12 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-// import PizzaCard from "@/components/PizzaCard";
+
 import PizzaList from "@/components/PizzaList";
 
 export default {
   name: 'App',
   components: {
-    // HelloWorld,
-    // PizzaCard,
     PizzaList
   }
 }
@@ -34,8 +31,7 @@ export default {
 }
 
 .content {
-  max-width: 720px;
-  background-color: #f6f6f6;
+  max-width: 1024px;
   margin: auto;
 
 }

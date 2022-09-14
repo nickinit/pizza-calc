@@ -1,9 +1,9 @@
 <template>
-  <div class="card"    > {{ pizza }} {{ value }} {{ index }}
+  <div class="card"  :class="{ bestProposal : isTheBest(value.overpayment) }"   >
 <!--    header-->
     <div class="card-header">
-      <h2>Pizza #{{ this.pizza.id }}</h2>
-      <button @click="cardClosed" class="btn default close">&#10006;</button>
+      <h2>Pizza #{{ modelValue.id }}</h2>
+      <button @click="closeCard(value.id)" class="btn default close">&#10006;</button>
     </div>
       <hr>
 <!--    body-->
@@ -11,15 +11,15 @@
       <div class="form-control">
         <label for="d">Diameter</label>
         <input
-          @keyup="dataChanged" type="text" v-model.number="this.value.d">
+           type="text" v-model.number="value.d" placeholder="cm&#178;">
       </div>
       <div class="form-control">
         <label for="price">Price</label>
-        <input type="text" @keyup="dataChanged"  v-model.number="this.value.price">
+        <input type="text"  v-model.number="value.price" placeholder="&#8381;">
       </div>
       <div class="form-control">
         <label for="count">Count</label>
-        <input type="text" @keyup="dataChanged" v-model.number="this.value.count">
+        <input type="text"  v-model.number="value.count">
       </div>
     </div>
   </div>
@@ -30,27 +30,26 @@
 <script>
 export default {
   name: "PizzaCard",
-  props: {
-    pizza: Object,
-    the_best: Object,
-    index: Number,
-  },
-  data() {
-    return {
-      value: this.pizza,
-      // the_best2: this.the_best
+  props: ['modelValue'],
+  emits: ['update:modelValue', 'closeCard'],
+  computed: {
+    value: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+      }
     }
   },
+  // data() {},
   methods: {
-    cardClosed() {
-      this.$emit('cardClosed', this.pizza.id)
+    closeCard(id){
+      this.$emit('closeCard', id)
     },
-    dataChanged() {
-      // this.pizza.d = this.value
-      // console.log(this.pizza.id, this.value)
-      this.$emit('dataChanged', this.value)
-
-    },
+    isTheBest(overpayment){
+      return overpayment === 0
+    }
   },
 
 }
@@ -66,11 +65,7 @@ export default {
 
 
 <style scoped>
-.container {
-display: flex;
-	min-width: 1200px;
-	flex-direction: row;
-}
+
 
 .card-header {
   /*display: grid;*/

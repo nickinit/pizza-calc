@@ -1,89 +1,96 @@
 <template>
-  <div>{{ proposals }}</div>
-  <div>{{ the_best }}</div>
   <div class="flex">
-    <pizza-card @cardClosed="cardClosed"
-                v-for="(pizza, index) in proposals"
-                :key="index"
-                @dataChanged="dataChanged"
-                :the_best="the_best"
-                :pizza="pizza" :index="index"/>
 
-    <button @click="addNewElement " class="new-card-button">+</button>
+
+      <pizza-card v-for="(pizza, i) in pizzas"
+                  :key="pizza.id"
+                  v-model="pizzas[i]"
+                  @closeCard="closeCard"
+                  @keyup="calculateOverpayment"
+      ></pizza-card>
+
+
+    <button class="new-card-button" @click="addCard">+</button>
   </div>
+
 </template>
 
 <script>
 import PizzaCard from "@/components/PizzaCard";
 
 export default {
-name: "PizzaList",
+  name: "PizzaList",
   components: {
-  PizzaCard
+    PizzaCard
   },
   methods: {
-    addNewElement: function (){
-
-      if (this.proposals.length > 0) {
-        console.log('max', [...this.proposals].sort((a,b) => b.id - a.id)[0])
-        this.proposals.push({
-          id: [...this.proposals].sort((a,b) => b.id - a.id)[0].id + 1,
-          count: 1,
-          price:undefined,
-          d: undefined})
-        // p.push({id: p[p.length - 1].id + 1})
-      } else {
-        this.proposals.push({id: 1, count: 1, price:undefined, d: undefined})
-      }
+    log(){console.log(this.pizzas)},
+    addCard() {
+      const nextId = this.findMaxId(this.pizzas) + 1
+      this.pizzas.push({
+        id: this.pizzas.length > 0 ? nextId : 1,
+        d: undefined,
+        price: undefined,
+        count: 1,
+        overpayment: undefined
+      })
     },
-    cardClosed: function (id){
-      this.proposals = this.proposals.filter(x => x.id !== id)
-      // this.proposals.splice(id, 1)
-      console.log('proposals after filter: ',this.proposals)
-      this.dataChanged()
-      console.log('data changed after cloalskdjf:', this.the_best)
-      return this.proposals
+
+    closeCard(id) {
+      this.pizzas = this.pizzas.filter(a => a.id !== id)
     },
-    dataChanged: function () {
-      // let changedPizza = this.proposals.find(x => x.id === e.id);
-      // changedPizza = e
-      // console.log('DO',this.proposals)
-      let propNew = [...this.proposals]
-      propNew.sort(function (a, b) {
 
-
-        if ((a.price / a.count / a.d) > (b.price / b.count / b.d)) {
-          return 1;
-        }
-        if ((a.price / a.count / a.d) < (b.price / b.count / b.d)) {
-          return -1;
-        }
-        // a должно быть равным b
-        return 0;
+    findMaxId(arr) {
+      const ids = arr.map(object => {
+        return object.id;
       });
-      // console.log('posle', this.proposals)
-      this.the_best = propNew[0]
-      return true
-    }
+      return Math.max(...ids);
+    },
 
+    // findMinOverpayment(arr) {
+    //   arr.sort((a, b) => a.price / a.count / a.d - b.price / b.count / b.d);
+    // },
+
+    findMinPricePerCm(arr) {
+      const prices = arr.map(object => {
+        return object.ppc;
+      });
+      return Math.min(...prices);
+    },
+
+    fillPricePerCm() {
+      this.pizzas.forEach(function(e){
+        e.ppc = e.price / e.count / e.d
+      })
+      // console.log(this.pizzas)
+    },
+
+    calculateOverpayment() {
+      this.fillPricePerCm()
+      const minPricePerCm = this.findMinPricePerCm(this.pizzas)
+      this.pizzas.forEach(function(e){
+        e.overpayment = (e.ppc - minPricePerCm) / minPricePerCm * 100
+      })
+
+    }
   },
+
   data() {
     return {
-      proposals: [
-        {
-          id: 1,
-          d: undefined,
-          price: undefined,
-          count: undefined
-        },
-        {
-          id: 2,
-          d: undefined,
-          price: undefined,
-          count: undefined
-        },
-      ],
-      the_best: undefined
+      pizzas: [{
+        id: 1,
+        d: undefined,
+        price: undefined,
+        count: 1,
+        overpayment: undefined
+      }, {
+        id: 2,
+        d: undefined,
+        price: undefined,
+        count: 1,
+        overpayment: undefined
+      }]
+
     }
   },
 
@@ -101,6 +108,21 @@ name: "PizzaList",
 
 .new-card-button {
   margin: 5px 5px 5px 0px;
+}
+
+.new-card-no-cards {
+  border: 2px solid rgb(96, 139, 168);
+  border-radius: 5px;
+  max-width: 150px;
+  min-width: 145px;
+  min-height: 173px;
+  max-height: 173px;
+  margin: 5px;
+  /*margin: 0 0 10px 0;*/
+  padding: 15px;
+  cursor: pointer;
+  /*border-inline-width: 10px;*/
+  background-color: white;
 }
 
 
