@@ -21,6 +21,15 @@
         <label for="count">Count</label>
         <input type="text"  v-model.number="value.count">
       </div>
+      <div class="form-control">
+        <span class="danger-text"  v-if="isFinite(value.overpayment) && value.overpayment > 0">
+          Overpayment: {{ Math.round(value.overpayment) }}%
+        </span>
+        <span v-else-if="value.overpayment === 0">
+          This is the best deal!
+        </span>
+
+      </div>
     </div>
   </div>
 </template>
@@ -176,7 +185,21 @@ input:focus {
   outline: none;
   border-color: forestgreen;
   box-shadow: 0 0 10px yellowgreen;
+  text-align: center;
   /*background: #42b983;*/
+}
+
+.bestProposal span {
+  color: forestgreen;
+  margin-top: 10px;
+  font-size: 10pt;
+  text-align: center;
+}
+
+.danger-text {
+  color: red;
+  margin-top: 10px;
+  font-size: 10pt;
 }
 
 </style>
