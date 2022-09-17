@@ -38,6 +38,7 @@ export default {
 
     closeCard(id) {
       this.pizzas = this.pizzas.filter(a => a.id !== id)
+      this.pizzas.length === 1 ? this.pizzas[0].overpayment = undefined : this.calculateOverpayment()
     },
 
     findMaxId(arr) {
@@ -53,6 +54,7 @@ export default {
 
     findMinPricePerCm(arr) {
       const prices = arr.map(object => {
+        object.ppc = (isNaN(object.ppc) ? Infinity : object.ppc)
         return object.ppc;
       });
       return Math.min(...prices);
