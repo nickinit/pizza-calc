@@ -11,7 +11,10 @@
 
 
   </div>
-  <button class="new-card-button" @click="addCard">+</button>
+  <div class="new-card-container">
+    <button class="new-card-button default" @click="addCard">Need more pizza</button>
+  </div>
+
 
 
 </template>
@@ -110,9 +113,51 @@ export default {
   margin-top: 0;
 }
 
-.new-card-button {
-  margin: 5px 5px 5px 0;
+.new-card-container {
+  display: flex;
+  justify-content: center;
 }
+
+.new-card-button {
+/*
+  position: fixed;
+  top: 75px;
+  right: 2px;
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+*/
+  width: 80%;
+
+  /*border-radius: 15px;*/
+  font-family: 'Rubik Burned', cursive;
+  font-size: 28pt;
+  margin: 5px 5px 5px 0;
+  cursor: pointer;
+  border: 2px solid rgb(96, 139, 168); /*rgb(96, 139, 168);*/
+
+  font-weight: bold;
+  background: #efefef;
+
+  color: #2c3e50;
+
+  /*padding: 14px 28px;*/
+  /*font-size: 16px;*/
+  border-radius: 5px;
+}
+/* Gray */
+.default {
+
+}
+
+.default:hover {
+  /*background: #efefef;*/
+  /*background-color: white;*/
+  color: #2c3e50;
+
+  /*border: 2px solid red;*/
+}
+
 
 /*
 .new-card-no-cards {

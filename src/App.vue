@@ -47,6 +47,5 @@ export default {
 .content {
   max-width: 1024px;
   margin: auto;
-  background-color: #dddddd;
 }
 </style>

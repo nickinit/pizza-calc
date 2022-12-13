@@ -14,6 +14,7 @@ export default {
 
 <style scoped>
   .footer {
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
