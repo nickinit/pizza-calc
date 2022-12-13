@@ -10,16 +10,18 @@
     <div class="card-body">
       <div class="form-control">
         <label for="d">Size...</label>
-        <input
-           type="text" v-model.number="value.d" placeholder="cm&#178;">
+        <input @keyup.enter="focusNextInput" :min=0
+           type="number" v-model.number="value.d" placeholder="cm&#178;">
       </div>
       <div class="form-control">
         <label for="price">Price...</label>
-        <input type="text"  v-model.number="value.price" placeholder="&#8381;">
+        <input @keyup.enter="focusNextInput" :min=0
+            type="number"  v-model.number="value.price" placeholder="&#8381;">
       </div>
       <div class="form-control">
         <label for="count">Count...</label>
-        <input type="text"  v-model.number="value.count">
+        <input @keyup.enter="focusNextInput" :min=0
+            type="number"  v-model.number="value.count">
       </div>
       <div class="form-control">
         <span class="danger-text"  v-if="isFinite(value.overpayment) && value.overpayment > 0">
@@ -58,6 +60,9 @@ export default {
     },
     isTheBest(overpayment){
       return overpayment === 0
+    },
+    focusNextInput(e){
+      e.target.parentElement.nextSibling.childNodes[1].focus();
     }
   },
 
@@ -133,7 +138,7 @@ hr {
   width: 50px;
 }
 
-input[type="text"] {
+input[type="number"] {
   font-family: inherit; /* 1 */
   font-size: inherit; /* 1 */
   line-height: inherit; /* 1 */
