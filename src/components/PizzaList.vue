@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="card-list">
 
 
       <pizza-card v-for="(pizza, i) in pizzas"
@@ -10,8 +10,9 @@
       ></pizza-card>
 
 
-    <button class="new-card-button" @click="addCard">+</button>
   </div>
+  <button class="new-card-button" @click="addCard">+</button>
+
 
 </template>
 
@@ -100,18 +101,20 @@ export default {
 </script>
 
 <style scoped>
-.flex {
+.card-list {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 5px;
+  /*margin: 5px;*/
+  margin-top: 0;
 }
 
 .new-card-button {
-  margin: 5px 5px 5px 0px;
+  margin: 5px 5px 5px 0;
 }
 
+/*
 .new-card-no-cards {
   border: 2px solid rgb(96, 139, 168);
   border-radius: 5px;
@@ -120,12 +123,13 @@ export default {
   min-height: 173px;
   max-height: 173px;
   margin: 5px;
-  /*margin: 0 0 10px 0;*/
+  !*margin: 0 0 10px 0;*!
   padding: 15px;
   cursor: pointer;
-  /*border-inline-width: 10px;*/
+  !*border-inline-width: 10px;*!
   background-color: white;
 }
+*/
 
 
 

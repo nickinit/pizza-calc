@@ -9,16 +9,16 @@
 <!--    body-->
     <div class="card-body">
       <div class="form-control">
-        <label for="d">Diameter</label>
+        <label for="d">Size...</label>
         <input
            type="text" v-model.number="value.d" placeholder="cm&#178;">
       </div>
       <div class="form-control">
-        <label for="price">Price</label>
+        <label for="price">Price...</label>
         <input type="text"  v-model.number="value.price" placeholder="&#8381;">
       </div>
       <div class="form-control">
-        <label for="count">Count</label>
+        <label for="count">Count...</label>
         <input type="text"  v-model.number="value.count">
       </div>
       <div class="form-control">
@@ -82,6 +82,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  font-size: 10pt;
 }
 
 .card-header p {
@@ -103,6 +104,7 @@ export default {
   border-radius: 5px;
   max-width: 150px;
   min-width: 145px;
+  /*width: 150px;*/
   margin: 5px;
   /*margin: 0 0 10px 0;*/
   padding: 15px;
