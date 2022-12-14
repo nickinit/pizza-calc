@@ -66,7 +66,7 @@ export default {
 
     fillPricePerCm() {
       this.pizzas.forEach(function(e){
-        e.ppc = e.price / e.count / e.d
+        e.ppc = e.price / e.count / ((e.d / 2 ) ** 2 * Math.PI) // TODO add dimension selection (square, diameter, etc)
       })
       // console.log(this.pizzas)
     },

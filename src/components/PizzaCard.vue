@@ -11,12 +11,12 @@
       <div class="form-control">
         <label for="d">Size...</label>
         <input @keyup.enter="focusNextInput" :min=0
-           type="number" v-model.number="value.d" placeholder="cm&#178;">
+           type="number" v-model.number="value.d" placeholder="cm">
       </div>
       <div class="form-control">
         <label for="price">Price...</label>
         <input @keyup.enter="focusNextInput" :min=0
-            type="number"  v-model.number="value.price" placeholder="&#8381;">
+            type="number"  v-model.number="value.price" placeholder="$">
       </div>
       <div class="form-control">
         <label for="count">Count...</label>
